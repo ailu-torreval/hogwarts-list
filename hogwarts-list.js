@@ -34,12 +34,39 @@ async function loadJSON() {
 
 function prepareObjects(jsonData) {
   allStudents = jsonData.map(prepareObject);
-
+  tidyArr = allStudents;
+  displayList(tidyArr);
   console.log("jsonData", jsonData);
+  return tidyArr;
   //   prepareObject(allStudents);
 }
 
-function prepareObject(students) {}
+function prepareObject(jsonObject) {
+  const student = Object.create(Student);
+  let firstName = jsonObject.fullname.substring(
+    0,
+    jsonObject.fullname.indexOf(" ")
+  );
+  let middleName = jsonObject.fullname.substring(
+    jsonObject.fullname.indexOf(" "),
+    jsonObject.fullname.lastIndexOf(" ")
+  );
+  let lastName = jsonObject.fullname.substring(
+    jsonObject.fullname.lastIndexOf(" ")
+  );
+
+  if (firstName) {
+    student.firstname = firstName;
+  } else {
+    student.firstname = middleName;
+  }
+  console.log();
+  student.lastname = lastName;
+  student.middlename = middleName;
+  student.blood = jsonObject.blood;
+  student.house = jsonObject.house;
+  return student;
+}
 
 function displayList(students) {
   document.querySelector("#list tbody").innerHTML = "";
@@ -55,7 +82,12 @@ function displayStudent(student) {
     .content.cloneNode(true);
 
   // set clone data
-  clone.querySelector("[data-field=name]").textContent = student.fullname;
+  clone.querySelector("[data-field=name]").textContent = student.firstname;
+  //   clone.querySelector("[data-field=middle-name]").textContent =
+  //     student.middlename;
+
+  clone.querySelector("[data-field=last-name]").textContent = student.lastname;
+
   clone.querySelector("[data-field=house]").textContent = student.house;
   //   clone.querySelector("[data-field=age]").textContent = animal.age;
   document.querySelector("#list tbody").appendChild(clone);
