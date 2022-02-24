@@ -1,0 +1,18 @@
+body {
+  background-color: #f7e9c2;
+  color: #3e0500;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+#list tbody tr:nth-child(odd) td {
+  background-color: #e7d7a9;
+  border-right: #f7e9c2 1px dotted;
+}
+
+#list tbody tr:nth-child(even) td {
+  border-right: #f7e9c2 1px dotted;
+}
