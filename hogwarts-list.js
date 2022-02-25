@@ -97,6 +97,7 @@ const Student = {
   prefect: false,
   squad: false,
   blood: "",
+  regStudent: true,
 };
 
 function setup() {
@@ -107,6 +108,8 @@ function setup() {
   document
     .querySelectorAll("[data-action='filterH']")
     .forEach((button) => button.addEventListener("click", selectFilterH));
+  document.querySelector("#all").addEventListener("click", showAll);
+
   loadJSON();
 }
 
@@ -242,6 +245,10 @@ function filterBList(blood) {
 
   //   let muggleStudents = filterStudents.filter(isMuggle);
   displayList(filterStudents);
+}
+
+function showAll() {
+  displayList(allStudents);
 }
 
 function displayList(students) {
