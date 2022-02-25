@@ -1,9 +1,92 @@
 "use strict";
 
+const pureBloodFamilies = [
+  "Boot",
+  "Cornfoot",
+  "Abbott",
+  "Avery",
+  "Black",
+  "Blishwick",
+  "Brown",
+  "Bulstrode",
+  "Burke",
+  "Carrow",
+  "Crabbe",
+  "Crouch",
+  "Fawley",
+  "Flint",
+  "Gamp",
+  "Gaunt",
+  "Goyle",
+  "Greengrass",
+  "Kama",
+  "Lestrange",
+  "Longbottom",
+  "MacDougal",
+  "Macmillan",
+  "Malfoy",
+  "Max",
+  "Moody",
+  "Nott",
+  "Ollivander",
+  "Parkinson",
+  "Peverell",
+  "Potter",
+  "Prewett",
+  "Prince",
+  "Rosier",
+  "Rowle",
+  "Sayre",
+  "Selwyn",
+  "Shacklebolt",
+  "Shafiq",
+  "Slughorn",
+  "Slytherin",
+  "Travers",
+  "Tremblay",
+  "Tripe",
+  "Urquart",
+  "Weasley",
+  "Yaxley",
+  "Bletchley",
+  "Dumbledore",
+  "Fudge",
+  "Gibbon",
+  "Gryffindor",
+  "Higgs",
+  "Lowe",
+  "Macnair",
+  "Montague",
+  "Mulciber",
+  "Orpington",
+  "Pyrites",
+  "Perks",
+  "Runcorn",
+  "Wilkes",
+  "Zabini",
+];
+
+const halfBloodFamilies = [
+  "Abbott",
+  "Bones",
+  "Jones",
+  "Hopkins",
+  "Finnigan",
+  "Potter",
+  "Brocklehurst",
+  "Goldstein",
+  "Corner",
+  "Bulstrode",
+  "Patil",
+  "Li",
+  "Thomas",
+];
+
 window.addEventListener("DOMContentLoaded", setup);
 
 let allStudents = [];
 let tidyArr;
+let studentBlood = student.blood;
 
 const Student = {
   firstname: "",
@@ -18,6 +101,9 @@ const Student = {
 
 function setup() {
   console.log("ready");
+  document
+    .querySelectorAll("[data-action='filterB']")
+    .forEach((button) => button.addEventListener("click", selectFilterB));
   loadJSON();
 }
 
@@ -40,27 +126,25 @@ function prepareObjects(jsonData) {
   return tidyArr;
   //   prepareObject(allStudents);
 }
-
 function prepareObject(jsonObject) {
   // get name parts
   const student = Object.create(Student);
-  let firstName = jsonObject.fullname.substring(
-    0,
-    jsonObject.fullname.indexOf(" ")
+  let cleanFullname = jsonObject.fullname.trim();
+
+  let firstName = cleanFullname.substring(0, cleanFullname.indexOf(" "));
+
+  let middleName = cleanFullname.substring(
+    cleanFullname.indexOf(" "),
+    cleanFullname.lastIndexOf(" ")
   );
-  let middleName = jsonObject.fullname.substring(
-    jsonObject.fullname.indexOf(" "),
-    jsonObject.fullname.lastIndexOf(" ")
-  );
-  let lastName = jsonObject.fullname.substring(
-    jsonObject.fullname.lastIndexOf(" ")
-  );
+
+  let lastName = cleanFullname.substring(cleanFullname.lastIndexOf(" "));
 
   let cleanHouse = jsonObject.house.trim();
   let cleanLName = lastName.trim();
   let cleanName = firstName.trim();
   let cleanMName = middleName.trim();
-
+  //capitalize
   student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
     .substring(1, cleanLName.length)
     .toLowerCase()}`;
@@ -77,15 +161,53 @@ function prepareObject(jsonObject) {
       .toLowerCase()}`;
     student.middlename = "";
   }
-  if (cleanMName.startsWith('"')) {
+  if (cleanMName.startsWith(student.lastname)) {
     student.middlename = "";
   }
-  student.blood = jsonObject.blood;
+
+  //   setting blood status
+
+  if (pureBloodFamilies.includes(student.lastname)) {
+    student.blood = "Pure Blood";
+  } else if (halfBloodFamilies.includes(student.lastname)) {
+    student.blood = "Half-Blood";
+  } else {
+    student.blood = "Muggle";
+  }
+
   student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse
     .substring(1, cleanHouse.length)
     .toLowerCase()}`;
 
   return student;
+}
+
+function selectFilterB(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterList(filter);
+}
+
+function filterList(blood) {
+  let filterStudents = allStudents;
+  if (blood === "Pure Blood") {
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Pure Blood"
+    );
+  } else if (blood === "Half-Blood") {
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Half-Blood"
+    );
+  } else {
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Muggle"
+    );
+  }
+  console.log(filterStudents);
+  //   let purestudents = filterStudents.filter(isPure);
+
+  //   let muggleStudents = filterStudents.filter(isMuggle);
+  displayList(filterStudents);
 }
 
 function displayList(students) {
@@ -111,6 +233,6 @@ function displayStudent(student) {
   clone.querySelector("[data-field=last-name]").textContent = student.lastname;
 
   clone.querySelector("[data-field=house]").textContent = student.house;
-  //   clone.querySelector("[data-field=age]").textContent = animal.age;
+  clone.querySelector("[data-field=blood-status]").textContent = student.blood;
   document.querySelector("#list tbody").appendChild(clone);
 }

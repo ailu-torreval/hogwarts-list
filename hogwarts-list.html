@@ -20,9 +20,9 @@
             <button id="filter-squad" data-action="filter" data-filter="squad">See Inquisitorial Squad</button>
             <button id="filter-reg" data-action="filter" data-filter="reg">See Regular Students</button>
             <button id="filter-expelled" data-action="filter" data-filter="expelled">See Expelled Students</button>
-            <button id="filter-pure" data-action="filter" data-filter="pure">See Pure Bloods</button>
-            <button id="filter-half" data-action="filter" data-filter="half">See Half-Bloods</button>
-            <button id="filter-muggle" data-action="filter" data-filter="muggle">See Muggles</button>
+            <button id="filter-pure" data-action="filterB" data-filter="Pure Blood">See Pure Bloods</button>
+            <button id="filter-half" data-action="filterB" data-filter="Half-Blood">See Half-Bloods</button>
+            <button id="filter-muggle" data-action="filterB" data-filter="Muggle">See Muggles</button>
             <button id="all" data-action="filter" data-filter="*">See All</button>
 
         </div>
@@ -34,7 +34,7 @@
                 </div>
                 <p>Filter by House</p>
                 <div id="houses">
-                    <button id="grif-btn" data-action="filter" data-filter="grif">G</button>
+                    <button id="grif-btn" data-action="filter" data-filter="gryf">G</button>
                     <button id="slyt-btn" data-action="filter" data-filter="slyt">S</button>
                     <button id="huff-btn" data-action="filter" data-filter="huff">H</button>
                     <button id="rave-btn" data-action="filter" data-filter="rave">R</button>
@@ -53,6 +53,8 @@
                     <th data-action="sort" data-sort-direction="asc" data-sort="last-name">Last Name</th>
 
                     <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+
+                    <th data-action="sort" data-sort-direction="asc" data-sort="blood-status">Blood Status</th>
                     <th data-action="sort" data-sort-direction="asc" data-sort="status">Status</th>
                 </tr>
             </thead>
@@ -68,7 +70,9 @@
                 <td data-field="middle-name">Middle Name</td>
                 <td data-field="last-name">Last Name</td>
                 <td data-field="house">House</td>
-                <td data-field="Status">Status</td>
+
+                <td data-field="blood-status">Blood Status</td>
+                <td data-field="status">Status</td>
             </tr>
         </template>
         <div id="student-popup" class="hidden">
