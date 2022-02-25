@@ -61,6 +61,12 @@ function prepareObject(jsonObject) {
   let cleanName = firstName.trim();
   let cleanMName = middleName.trim();
 
+  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
+    .substring(1, cleanLName.length)
+    .toLowerCase()}`;
+  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+    .substring(1, cleanMName.length)
+    .toLowerCase()}`;
   if (firstName) {
     student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName
       .substring(1, cleanName.length)
@@ -69,13 +75,11 @@ function prepareObject(jsonObject) {
     student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
       .substring(1, cleanMName.length)
       .toLowerCase()}`;
+    student.middlename = "";
   }
-  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
-    .substring(1, cleanLName.length)
-    .toLowerCase()}`;
-  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
-    .substring(1, cleanMName.length)
-    .toLowerCase()}`;
+  if (cleanMName.startsWith('"')) {
+    student.middlename = "";
+  }
   student.blood = jsonObject.blood;
   student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse
     .substring(1, cleanHouse.length)
