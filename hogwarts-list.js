@@ -104,6 +104,9 @@ function setup() {
   document
     .querySelectorAll("[data-action='filterB']")
     .forEach((button) => button.addEventListener("click", selectFilterB));
+  document
+    .querySelectorAll("[data-action='filterH']")
+    .forEach((button) => button.addEventListener("click", selectFilterH));
   loadJSON();
 }
 
@@ -185,10 +188,41 @@ function prepareObject(jsonObject) {
 function selectFilterB(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
-  filterList(filter);
+  filterBList(filter);
+}
+function selectFilterH(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterHList(filter);
 }
 
-function filterList(blood) {
+function filterHList(house) {
+  let filterStudents = allStudents;
+  if (house === "Gryffindor") {
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Gryffindor"
+    );
+  } else if (house === "Hufflepuff") {
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Hufflepuff"
+    );
+  } else if (house === "Ravenclaw") {
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Ravenclaw"
+    );
+  } else if (house === "Slytherin") {
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Slytherin"
+    );
+  }
+  console.log(filterStudents);
+  //   let purestudents = filterStudents.filter(isPure);
+
+  //   let muggleStudents = filterStudents.filter(isMuggle);
+  displayList(filterStudents);
+}
+
+function filterBList(blood) {
   let filterStudents = allStudents;
   if (blood === "Pure Blood") {
     filterStudents = filterStudents.filter(
