@@ -93,11 +93,11 @@ const Student = {
   lastname: "",
   alias: "",
   house: "",
+  blood: "",
+  status: "",
   prefect: false,
   squad: false,
-  blood: "",
   regStudent: true,
-  status: "",
 };
 
 function setup() {
@@ -114,8 +114,6 @@ function setup() {
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((button) => button.addEventListener("click", selectSort));
-  // adding event listeners to students for poup
-
   loadJSON();
 }
 
@@ -127,7 +125,6 @@ async function loadJSON() {
 
   // when loaded, prepare data objects
   prepareObjects(jsonData);
-  //   displayList(jsonData);
 }
 
 function prepareObjects(jsonData) {
@@ -308,7 +305,7 @@ function displayStudent(student) {
 
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=blood-status]").textContent = student.blood;
-
+  // adding event listeners to students for poup
   clone
     .querySelector("[data-field='last-name'")
     .addEventListener("click", openPU);
@@ -321,6 +318,19 @@ function displayStudent(student) {
     document.querySelector("#popup-house").textContent = student.house;
     document.querySelector("#popup-blood").textContent = student.blood;
     document.querySelector("#popup-status").textContent = student.status;
+    document.querySelector("#student-pic").src = `/students-pics/${
+      student.lastname
+    }_${student.firstname.charAt(0)}.png`;
+    document.querySelector("#popup-house-logo").textContent =
+      student.house.charAt(0);
+    if (student.lastname.includes("-")) {
+      document.querySelector(
+        "#student-pic"
+      ).src = `/students-pics/${student.lastname.indexOf(
+        "-",
+        student.lastname.substring(1)
+      )}_${student.firstname.charAt(0)}.png`;
+    }
 
     //     <div id="popup-header">
     //     <div id="popup-title">
@@ -340,5 +350,6 @@ function displayStudent(student) {
     //     <button id="popup-close">Close Window</button>
     // </div>
   }
+
   document.querySelector("#list tbody").appendChild(clone);
 }
