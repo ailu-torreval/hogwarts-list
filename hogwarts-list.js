@@ -102,6 +102,7 @@ const Student = {
 
 function setup() {
   console.log("ready");
+  //   setting filter events
   document
     .querySelectorAll("[data-action='filterB']")
     .forEach((button) => button.addEventListener("click", selectFilterB));
@@ -109,11 +110,9 @@ function setup() {
     .querySelectorAll("[data-action='filterH']")
     .forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector("#all").addEventListener("click", showAll);
-
+  // setting sorting event
   document
-
     .querySelectorAll("[data-action='sort']")
-
     .forEach((button) => button.addEventListener("click", selectSort));
 
   loadJSON();

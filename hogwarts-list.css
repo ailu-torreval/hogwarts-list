@@ -4,6 +4,10 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+main {
+  position: relative;
+}
+
 .hidden {
   display: none;
 }
@@ -19,4 +23,17 @@ body {
 
 #sorting th {
   cursor: pointer;
+}
+
+[data-field="last-name"],
+[data-field="name"] {
+  cursor: pointer;
+}
+
+#student-popup {
+  background-color: aliceblue;
+  position: absolute;
+  top: 5%;
+  left: 25%;
+  padding: 2rem;
 }
