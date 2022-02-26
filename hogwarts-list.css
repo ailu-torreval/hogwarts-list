@@ -16,3 +16,7 @@ body {
 #list tbody tr:nth-child(even) td {
   border-right: #f7e9c2 1px dotted;
 }
+
+#sorting th {
+  cursor: pointer;
+}
