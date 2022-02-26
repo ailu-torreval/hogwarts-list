@@ -85,8 +85,7 @@ const halfBloodFamilies = [
 window.addEventListener("DOMContentLoaded", setup);
 
 let allStudents = [];
-let tidyArr;
-let studentBlood = student.blood;
+let filterStudents;
 
 const Student = {
   firstname: "",
@@ -131,10 +130,10 @@ async function loadJSON() {
 
 function prepareObjects(jsonData) {
   allStudents = jsonData.map(prepareObject);
-  tidyArr = allStudents;
-  displayList(tidyArr);
+  filterStudents = allStudents;
+  displayList(filterStudents);
   console.log("jsonData", jsonData);
-  return tidyArr;
+  return filterStudents;
   //   prepareObject(allStudents);
 }
 function prepareObject(jsonObject) {
@@ -193,6 +192,26 @@ function prepareObject(jsonObject) {
   return student;
 }
 
+function selectSort(event) {
+  const sortParam = event.target.dataset.sort;
+  console.log(`user select, ${sortParam}`);
+  sortList(sortParam);
+}
+
+function sortList(sortParam) {
+  filterStudents = filterStudents.sort(sortByParam);
+
+  function sortByParam(studentA, studentB) {
+    if (studentA[sortParam] < studentB[sortParam]) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+
+  displayList(filterStudents);
+}
+
 function selectFilterB(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
@@ -205,7 +224,7 @@ function selectFilterH(event) {
 }
 
 function filterHList(house) {
-  let filterStudents = allStudents;
+  filterStudents = allStudents;
   if (house === "Gryffindor") {
     filterStudents = filterStudents.filter(
       (student) => student.house === "Gryffindor"
@@ -231,7 +250,7 @@ function filterHList(house) {
 }
 
 function filterBList(blood) {
-  let filterStudents = allStudents;
+  filterStudents = allStudents;
   if (blood === "Pure Blood") {
     filterStudents = filterStudents.filter(
       (student) => student.blood === "Pure Blood"
@@ -252,29 +271,8 @@ function filterBList(blood) {
   displayList(filterStudents);
 }
 
-function selectSort(event) {
-  const sortParam = event.target.dataset.sort;
-  console.log(`user select, ${sortParam}`);
-  sortList(sortParam);
-}
-
-function sortList(sortParam) {
-  let sortedList = allStudents;
-
-  sortedList = sortedList.sort(sortByParam);
-
-  function sortByParam(studentA, studentB) {
-    if (studentA[sortParam] < studentB[sortParam]) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-
-  displayList(sortedList);
-}
-
 function showAll() {
+  filterStudents = allStudents;
   displayList(allStudents);
 }
 
