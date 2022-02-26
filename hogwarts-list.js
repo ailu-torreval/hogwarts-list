@@ -110,6 +110,12 @@ function setup() {
     .forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector("#all").addEventListener("click", showAll);
 
+  document
+
+    .querySelectorAll("[data-action='sort']")
+
+    .forEach((button) => button.addEventListener("click", selectSort));
+
   loadJSON();
 }
 
@@ -167,7 +173,7 @@ function prepareObject(jsonObject) {
       .toLowerCase()}`;
     student.middlename = "";
   }
-  if (cleanMName.startsWith(student.lastname)) {
+  if (cleanMName.startsWith('"')) {
     student.middlename = "";
   }
 
@@ -245,6 +251,28 @@ function filterBList(blood) {
 
   //   let muggleStudents = filterStudents.filter(isMuggle);
   displayList(filterStudents);
+}
+
+function selectSort(event) {
+  const sortParam = event.target.dataset.sort;
+  console.log(`user select, ${sortParam}`);
+  sortList(sortParam);
+}
+
+function sortList(sortParam) {
+  let sortedList = allStudents;
+
+  sortedList = sortedList.sort(sortByParam);
+
+  function sortByParam(studentA, studentB) {
+    if (studentA[sortParam] < studentB[sortParam]) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+
+  displayList(sortedList);
 }
 
 function showAll() {
