@@ -1,16 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap");
+
 body {
-  background-color: #f7e9c2;
+  background-image: url("/assets/paper-txt.jpg");
   color: #3e0500;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* font-family: "Charm", cursive; */
 }
 
 main {
   position: relative;
 }
 
-
 .hidden {
   display: none;
+}
+
+.grey {
+  filter: grayscale(100%);
+}
+
+#header-banner {
+  margin-left: 25%;
 }
 
 #list tbody tr:nth-child(odd) td {
@@ -19,22 +29,76 @@ main {
 }
 
 #list tbody tr:nth-child(even) td {
-  border-right: #f7e9c2 1px dotted;
+  border-right: #e7d7a9 1px dotted;
 }
 
-#sorting th {
-  cursor: pointer;
-}
-
+#sorting th,
 [data-field="last-name"],
-[data-field="name"] {
+[data-field="name"],
+[data-field="pref"],
+[data-field="name"],
+[data-field="squad"] {
   cursor: pointer;
+}
+
+[data-field="pref"] {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+[data-field="squad"] {
+  padding-left: 8%;
 }
 
 #student-popup {
-  background-color: aliceblue;
-  position: absolute;
-  top: 5%;
-  left: 25%;
+  background-image: url("/assets/paper-txt.jpg");
+  position: fixed;
+  box-shadow: 10px 10px 16px -1px rgba(62, 5, 0, 0.31);
+  border-radius: 20px;
+  top: 35%;
+  left: 62%;
   padding: 2rem;
+}
+
+#popup-header {
+  display: flex;
+  gap: 20px;
+  font-family: "Charm", cursive;
+}
+
+#popup-title {
+  align-self: center;
+}
+
+#popup-house {
+  margin-top: 0;
+}
+
+#popup-name {
+  margin-bottom: 0;
+}
+
+#popup-expell {
+  background-color: #bf1717;
+  color: white;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+}
+
+#popup-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+#popup-expell:hover,
+#popup-close:hover {
+  filter: brightness(1.2);
+}
+
+#popup-close {
+  background-color: #cec096;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
 }
