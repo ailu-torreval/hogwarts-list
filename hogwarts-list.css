@@ -4,7 +4,6 @@ body {
   background-image: url("/assets/paper-txt.jpg");
   color: #3e0500;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* font-family: "Charm", cursive; */
 }
 
 main {
@@ -21,6 +20,11 @@ main {
 
 #header-banner {
   margin-left: 25%;
+}
+
+#sorting {
+  font-family: "Charm", cursive;
+  font-size: 1.3rem;
 }
 
 #list tbody tr:nth-child(odd) td {

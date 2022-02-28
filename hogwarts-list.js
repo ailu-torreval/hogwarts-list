@@ -86,6 +86,8 @@ window.addEventListener("DOMContentLoaded", setup);
 
 let allStudents = [];
 let filterStudents;
+let expelledStudents = [];
+let regStudents = [];
 
 const Student = {
   firstname: "",
@@ -189,11 +191,7 @@ function prepareObject(jsonObject) {
     .substring(1, cleanHouse.length)
     .toLowerCase()}`;
 
-  if (student.regStudent) {
-    student.status = "Regular Student";
-  } else {
-    student.status = "Expelled Student";
-  }
+  student.regStudent = true;
 
   //checking siblings for patil issue
 
@@ -217,7 +215,7 @@ function sortList(sortParam) {
     }
   }
 
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 function selectFilterB(event) {
@@ -254,7 +252,7 @@ function filterHList(house) {
   //   let purestudents = filterStudents.filter(isPure);
 
   //   let muggleStudents = filterStudents.filter(isMuggle);
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 function filterBList(blood) {
@@ -276,12 +274,18 @@ function filterBList(blood) {
   //   let purestudents = filterStudents.filter(isPure);
 
   //   let muggleStudents = filterStudents.filter(isMuggle);
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 function showAll() {
   filterStudents = allStudents;
-  displayList(allStudents);
+  buildList(allStudents);
+}
+//build list
+function buildList(students) {
+  console.log("buildList");
+  const regStudents = filterStudents;
+  displayList(regStudents);
 }
 
 function displayList(students) {
@@ -308,12 +312,20 @@ function displayStudent(student) {
 
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=blood-status]").textContent = student.blood;
+  //student status
+  if (student.regStudent) {
+    clone.querySelector("[data-field=status]").textContent = "Regular Student";
+  } else {
+    clone.querySelector("[data-field=status]").textContent = "Expelled Student";
+  }
+  //   clone.querySelector("[data-field=status]").textContent = student.status;
+
   // adding event listeners to students for poup
   clone
-    .querySelector("[data-field='last-name'")
+    .querySelector("[data-field=last-name]")
     .addEventListener("click", openStudPU);
   clone
-    .querySelector("[data-field='name'")
+    .querySelector("[data-field=name]")
     .addEventListener("click", openStudPU);
 
   function openStudPU() {
@@ -326,6 +338,13 @@ function displayStudent(student) {
     //       <img src="" alt="house-flag" id="house-flag">
     //       <img src="" alt="house-logo" id="house-logo" height="50" width="50">
     //   </div>
+
+    if (student.regStudent) {
+      document.querySelector("#popup-status").textContent = "Regular Student";
+    } else {
+      document.querySelector("#popup-status").textContent = "Expelled Student";
+    }
+
     document.querySelector(
       "#house-flag"
     ).src = `/assets/${student.house}-flag.svg`;
@@ -333,7 +352,7 @@ function displayStudent(student) {
 
     document.querySelector("#popup-house").textContent = student.house;
     document.querySelector("#popup-blood").textContent = student.blood;
-    document.querySelector("#popup-status").textContent = student.status;
+
     document.querySelector("#student-pic").src = `/students-pics/${
       student.lastname
     }_${student.firstname.charAt(0)}.png`;
@@ -359,6 +378,30 @@ function displayStudent(student) {
     // for padma parvitti
 
     document.querySelector("#popup-close").addEventListener("click", closePU);
+
+    //event listener for expelling student
+    document
+      .querySelector("#popup-expell")
+      .addEventListener("click", clickExpel);
+    buildList();
+  }
+
+  function clickExpel() {
+    expelledStudents.push(student);
+    const index = filterStudents.indexOf(student);
+    regStudents = filterStudents.splice(index, 1);
+
+    //add to the expelled array
+    //take out from filterstudents array
+    //change status on object
+    student.regStudent = false;
+    document
+      .querySelector("#popup-expell")
+      .removeEventListener("click", clickExpel);
+    document.querySelector("#popup-status").textContent = "Expelled Student";
+
+    console.log(student.firstname + " is expelled");
+    buildList();
   }
 
   document.querySelector("#list tbody").appendChild(clone);
