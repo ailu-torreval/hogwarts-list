@@ -89,7 +89,11 @@ let filterStudents;
 let expelledStudents = [];
 let regStudents;
 let squadStudents = [];
-let prefects;
+let prefects = [];
+let prefSlytherin = [];
+let prefGryffindor = [];
+let prefHufflepuff = [];
+let prefRavenclaw = [];
 
 const Student = {
   firstname: "",
@@ -398,15 +402,79 @@ function displayStudent(student) {
     .querySelector("[data-field=squad]")
     .addEventListener("click", squadClicked);
 
+  // function clickPrefects(clickedStudent) {
+  //     console.log(clickedStudent);
+
+  //     //creates an array for the prefects
+  //     const prefects = allStudents.filter((elm) => {
+  //       return elm.prefect === true;
+  //     });
+
+  //     // Determine the house of student in prefects array
+  //     const prefectsOfHouse = prefects.filter((elm) => {
+  //       return elm.house === clickedStudent.house;
+  //     });
+
+  //     // determine the clicked student by house and "allready prefect"
+  //     if (clickedStudent.prefect === true) {
+  //       console.log("remooove"); // doesent work for whatever reason
+  //       clickedStudent.prefect = false;
+  //     } else if (prefectsOfHouse) {
+  //       clickedStudent.prefect = false;
+  //     }
+
+  //     if (prefectsOfHouse.length > 1) {
+  //       clickedStudent.prefect = false;
+  //     } else {
+  //       clickedStudent.prefect = true;
+  //     }
+
+  //     // Stop the prefects array from going over 8
+  //     if (prefects.length > 7) {
+  //       clickedStudent.prefect = false;
+  //     }
+
+  //     displayList(allStudents);
+  //   }
+
   function prefClicked() {
-    prefects.push(student);
-    console.log("pref clicked");
-    if (student.prefect) {
+    if (student.prefect === true) {
       student.prefect = false;
+      const index = prefects.indexOf(student);
+      prefects.splice(index, 1);
+      console.log("taking out of the array");
     } else {
+      console.log("its your student");
       student.prefect = true;
+      //   prefects.push(student);
+      checkPrefect(student);
     }
-    console.log("animal star", student.prefect);
+    buildList();
+  }
+
+  function checkPrefect(student) {
+    const prefectsHouse = prefects.filter(
+      (stud) => stud.house === student.house
+    );
+    console.log(prefectsHouse);
+    const nrHouse = prefectsHouse.length;
+
+    if (student.prefect === true) {
+      if (nrHouse >= 2) {
+        console.log("you can have only 2 per house", prefectsHouse);
+        student.prefect = false;
+      } else {
+        makePrefect(student);
+        console.log("make prefect");
+      }
+    }
+  }
+
+  function makePrefect(student) {
+    student.prefect = true;
+
+    prefects.push(student);
+
     buildList();
   }
 

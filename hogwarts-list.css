@@ -113,7 +113,11 @@ main {
 }
 
 #squad-popup {
-  position: absolute;
-  top: 25;
-  left: 25%;
+  background-image: url("/assets/paper-txt.jpg");
+  position: fixed;
+  box-shadow: 10px 10px 16px -1px rgba(62, 5, 0, 0.31);
+  border-radius: 20px;
+  top: 35%;
+  left: 62%;
+  padding: 2rem;
 }
