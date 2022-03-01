@@ -18,8 +18,8 @@
             Filters:
             <button id="filter-pref" data-action="filter" data-filter="pref">See Prefects</button>
             <button id="filter-squad" data-action="filter" data-filter="squad">See Inquisitorial Squad</button>
-            <button id="filter-reg" data-action="filter" data-filter="reg">See Regular Students</button>
-            <button id="filter-expelled" data-action="filter" data-filter="expelled">See Expelled Students</button>
+            <button id="filter-reg" data-action="filterS" data-filter="regular">See Regular Students</button>
+            <button id="filter-expelled" data-action="filterS" data-filter="expelled">See Expelled Students</button>
             <button id="filter-pure" data-action="filterB" data-filter="Pure Blood">See Pure Bloods</button>
             <button id="filter-half" data-action="filterB" data-filter="Half-Blood">See Half-Bloods</button>
             <button id="filter-muggle" data-action="filterB" data-filter="Muggle">See Muggles</button>
@@ -66,7 +66,7 @@
         </table>
 
         <template id="student">
-            <tr>
+            <tr id="student-info">
                 <td data-field="pref"><img class="pref-badge grey" src="/assets/prefect-badge.png" alt="prefect-badge"
                         height="22" width="22"></td>
                 <td data-field="last-name">Last Name</td>

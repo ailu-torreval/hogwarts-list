@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded", setup);
 let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
-let regStudents = [];
+let regStudents;
 
 const Student = {
   firstname: "",
@@ -112,6 +112,10 @@ function setup() {
   document
     .querySelectorAll("[data-action='filterH']")
     .forEach((button) => button.addEventListener("click", selectFilterH));
+  document
+    .querySelectorAll("[data-action='filterS']")
+    .forEach((button) => button.addEventListener("click", selectFilterS));
+
   document.querySelector("#all").addEventListener("click", showAll);
   // setting sorting event
   document
@@ -193,6 +197,11 @@ function prepareObject(jsonObject) {
 
   student.regStudent = true;
 
+  //   if (student.regStudent === true) {
+  //     student.status = "regular";
+  //   } else {
+  //     student.status = "expelled";
+  //   }
   //checking siblings for patil issue
 
   return student;
@@ -229,6 +238,28 @@ function selectFilterH(event) {
   filterHList(filter);
 }
 
+function selectFilterS(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterSList(filter);
+}
+
+function filterSList(filter) {
+  filterStudents = allStudents;
+  if (filter === "regular") {
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === true
+    );
+  } else {
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === false
+    );
+  }
+
+  console.log("status", filterStudents);
+  buildList(filterStudents);
+}
+
 function filterHList(house) {
   filterStudents = allStudents;
   if (house === "Gryffindor") {
@@ -248,10 +279,7 @@ function filterHList(house) {
       (student) => student.house === "Slytherin"
     );
   }
-  console.log(filterStudents);
-  //   let purestudents = filterStudents.filter(isPure);
-
-  //   let muggleStudents = filterStudents.filter(isMuggle);
+  console.log("filterH", filterStudents);
   buildList(filterStudents);
 }
 
@@ -279,13 +307,13 @@ function filterBList(blood) {
 
 function showAll() {
   filterStudents = allStudents;
-  buildList(allStudents);
+  displayList(allStudents);
 }
 //build list
-function buildList(students) {
+function buildList() {
   console.log("buildList");
-  const regStudents = filterStudents;
-  displayList(regStudents);
+
+  displayList(filterStudents);
 }
 
 function displayList(students) {
@@ -312,21 +340,61 @@ function displayStudent(student) {
 
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=blood-status]").textContent = student.blood;
-  //student status
   if (student.regStudent) {
     clone.querySelector("[data-field=status]").textContent = "Regular Student";
   } else {
     clone.querySelector("[data-field=status]").textContent = "Expelled Student";
+    clone.querySelector("#student-info").classList.add("grey");
   }
   //   clone.querySelector("[data-field=status]").textContent = student.status;
 
   // adding event listeners to students for poup
+  if (student.prefect) {
+    clone.querySelector(".pref-badge").classList.remove("grey");
+  } else {
+    clone.querySelector(".pref-badge").classList.add("grey");
+  }
+
+  if (student.squad) {
+    clone.querySelector(".inq-squad").classList.remove("grey");
+  } else {
+    clone.querySelector(".inq-squad").classList.add("grey");
+  }
+
   clone
     .querySelector("[data-field=last-name]")
     .addEventListener("click", openStudPU);
   clone
     .querySelector("[data-field=name]")
     .addEventListener("click", openStudPU);
+  clone
+    .querySelector("[data-field=pref]")
+    .addEventListener("click", prefClicked);
+  clone
+    .querySelector("[data-field=squad]")
+    .addEventListener("click", squadClicked);
+
+  function prefClicked() {
+    console.log("pref clicked");
+    if (student.prefect) {
+      student.prefect = false;
+    } else {
+      student.prefect = true;
+    }
+    console.log("animal star", student.prefect);
+    buildList();
+  }
+
+  function squadClicked() {
+    console.log("squad clicked");
+    if (student.squad) {
+      student.squad = false;
+    } else {
+      student.squad = true;
+    }
+    console.log("squad", student.squad);
+    buildList();
+  }
 
   function openStudPU() {
     console.log("show student info", student.lastname);
@@ -343,6 +411,8 @@ function displayStudent(student) {
       document.querySelector("#popup-status").textContent = "Regular Student";
     } else {
       document.querySelector("#popup-status").textContent = "Expelled Student";
+      document.querySelector("#popup-status").classList.add("red");
+      document.querySelector("#popup-expell").classList.add("hidden");
     }
 
     document.querySelector(
@@ -388,8 +458,9 @@ function displayStudent(student) {
 
   function clickExpel() {
     expelledStudents.push(student);
-    const index = filterStudents.indexOf(student);
-    regStudents = filterStudents.splice(index, 1);
+    // regStudents = allStudents;
+    // const index = allStudents.indexOf(student);
+    // regStudents.splice(index, 1);
 
     //add to the expelled array
     //take out from filterstudents array
@@ -399,6 +470,8 @@ function displayStudent(student) {
       .querySelector("#popup-expell")
       .removeEventListener("click", clickExpel);
     document.querySelector("#popup-status").textContent = "Expelled Student";
+    // document.querySelector("#popup-status").classList.add("red");
+    // document.querySelector("#popup-expell").classList.add("hidden");
 
     console.log(student.firstname + " is expelled");
     buildList();
