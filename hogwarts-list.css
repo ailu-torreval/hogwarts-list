@@ -38,6 +38,7 @@ main {
 
 #list tbody tr:nth-child(even) td {
   border-right: #e7d7a9 1px dotted;
+  background-color: #f7e9c2;
 }
 
 #sorting th,
@@ -109,4 +110,10 @@ main {
   padding: 8px;
   border-radius: 20px;
   border: none;
+}
+
+#squad-popup {
+  position: absolute;
+  top: 25;
+  left: 25%;
 }

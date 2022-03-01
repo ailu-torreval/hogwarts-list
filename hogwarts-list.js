@@ -88,6 +88,8 @@ let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
 let regStudents;
+let squadStudents = [];
+let prefects;
 
 const Student = {
   firstname: "",
@@ -106,6 +108,12 @@ const Student = {
 function setup() {
   console.log("ready");
   //   setting filter events
+  document
+    .querySelectorAll("[data-action='filterPS']")
+    .forEach((button) => button.addEventListener("click", selectFilterPS));
+  document
+    .querySelectorAll("[data-action='filterPS']")
+    .forEach((button) => button.addEventListener("click", selectFilterPS));
   document
     .querySelectorAll("[data-action='filterB']")
     .forEach((button) => button.addEventListener("click", selectFilterB));
@@ -196,12 +204,8 @@ function prepareObject(jsonObject) {
     .toLowerCase()}`;
 
   student.regStudent = true;
-
-  //   if (student.regStudent === true) {
-  //     student.status = "regular";
-  //   } else {
-  //     student.status = "expelled";
-  //   }
+  student.squad = false;
+  student.prefect = false;
   //checking siblings for patil issue
 
   return student;
@@ -227,6 +231,12 @@ function sortList(sortParam) {
   buildList(filterStudents);
 }
 
+function selectFilterPS(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterPSList(filter);
+}
+
 function selectFilterB(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
@@ -242,6 +252,20 @@ function selectFilterS(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
   filterSList(filter);
+}
+
+function filterPSList(filter) {
+  filterStudents = allStudents;
+  if (filter === "pref") {
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === true
+    );
+  } else {
+    filterStudents = filterStudents.filter((student) => student.squad === true);
+  }
+
+  console.log("status", filterStudents);
+  buildList(filterStudents);
 }
 
 function filterSList(filter) {
@@ -375,6 +399,7 @@ function displayStudent(student) {
     .addEventListener("click", squadClicked);
 
   function prefClicked() {
+    prefects.push(student);
     console.log("pref clicked");
     if (student.prefect) {
       student.prefect = false;
@@ -386,13 +411,24 @@ function displayStudent(student) {
   }
 
   function squadClicked() {
-    console.log("squad clicked");
-    if (student.squad) {
-      student.squad = false;
+    if (student.regStudent === true) {
+      if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+        if (student.squad === true) {
+          student.squad = false;
+          const index = squadStudents.indexOf(student);
+          squadStudents.splice(index, 1);
+        } else {
+          student.squad = true;
+          squadStudents.push(student);
+        }
+      } else {
+        console.log("you cant be squad");
+        document.querySelector("#squad-popup").classList.remove("hidden");
+        document.querySelector("#squad-btn").addEventListener("click", closePU);
+      }
     } else {
-      student.squad = true;
+      student.squad = false;
     }
-    console.log("squad", student.squad);
     buildList();
   }
 
@@ -402,13 +438,10 @@ function displayStudent(student) {
     document.querySelector("#popup-name").textContent =
       student.firstname + " " + student.middlename + " " + student.lastname;
 
-    //       <div id="logo-container">
-    //       <img src="" alt="house-flag" id="house-flag">
-    //       <img src="" alt="house-logo" id="house-logo" height="50" width="50">
-    //   </div>
-
     if (student.regStudent) {
       document.querySelector("#popup-status").textContent = "Regular Student";
+      document.querySelector("#popup-status").classList.remove("red");
+      document.querySelector("#popup-expell").classList.remove("hidden");
     } else {
       document.querySelector("#popup-status").textContent = "Expelled Student";
       document.querySelector("#popup-status").classList.add("red");
@@ -458,20 +491,15 @@ function displayStudent(student) {
 
   function clickExpel() {
     expelledStudents.push(student);
-    // regStudents = allStudents;
-    // const index = allStudents.indexOf(student);
-    // regStudents.splice(index, 1);
-
-    //add to the expelled array
-    //take out from filterstudents array
-    //change status on object
     student.regStudent = false;
+    student.squad = false;
+    student.prefect = false;
     document
       .querySelector("#popup-expell")
       .removeEventListener("click", clickExpel);
     document.querySelector("#popup-status").textContent = "Expelled Student";
-    // document.querySelector("#popup-status").classList.add("red");
-    // document.querySelector("#popup-expell").classList.add("hidden");
+    document.querySelector("#popup-status").classList.add("red");
+    document.querySelector("#popup-expell").classList.add("hidden");
 
     console.log(student.firstname + " is expelled");
     buildList();
