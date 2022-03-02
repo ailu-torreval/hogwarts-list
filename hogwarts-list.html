@@ -29,7 +29,7 @@
         <div id="right-nav">
             <div id="house-filter">
                 <div id="search-box">
-                    <input type="search" placeholder="Search by name.." name="search" />
+                    <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
                     <button id="search-btn">Search</button>
                 </div>
                 <p>Filter by House</p>
@@ -81,6 +81,7 @@
             </tr>
         </template>
         <div id="student-popup" class="hidden">
+            <img src="/assets/expelled-stamp.png" alt="" id="expelled-stamp" class="hidden" height="95">
             <div id="popup-header">
                 <img src="" alt="" id="student-pic">
                 <div id="popup-title">
@@ -92,11 +93,9 @@
                 <img src="" alt="house-flag" id="house-flag">
                 <img src="" alt="house-logo" id="house-logo" height="50" width="50">
             </div>
-
-            <div id="popup-txt"></div>
             <p id="popup-pref">Prefect</p>
             <p id="popup-blood"></p>
-            <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
+            <p id="popup-sq">Member of the Inquisitory Squad</p>
             <p id="popup-stud-st">Student Status: <span id="popup-status">Regular Student</span></p>
             <div id="popup-btns">
                 <button id="popup-close">Close Window</button>

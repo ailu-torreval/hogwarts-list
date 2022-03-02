@@ -22,6 +22,25 @@ main {
   color: red;
 }
 
+.fade-in {
+  animation: fade-in 0.3s ease 1;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 100;
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 #header-banner {
   margin-left: 25%;
 }
@@ -110,6 +129,12 @@ main {
   padding: 8px;
   border-radius: 20px;
   border: none;
+}
+
+#expelled-stamp {
+  position: absolute;
+  top: 55%;
+  left: 21%;
 }
 
 #squad-popup {

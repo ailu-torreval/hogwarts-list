@@ -87,14 +87,9 @@ window.addEventListener("DOMContentLoaded", setup);
 let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
-let regStudents;
+// let regStudents;
 let squadStudents = [];
 let prefects = [];
-let prefSlytherin = [];
-let prefGryffindor = [];
-let prefHufflepuff = [];
-let prefRavenclaw = [];
-
 const Student = {
   firstname: "",
   middlename: "",
@@ -133,7 +128,23 @@ function setup() {
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((button) => button.addEventListener("click", selectSort));
+
+  //setting search bar
+  document.querySelector("#search-bar").addEventListener("input", searchBar);
+
   loadJSON();
+}
+
+function searchBar(e) {
+  const searchString = e.target.value.toLowerCase();
+  const searchStudent = allStudents.filter((student) => {
+    return (
+      student.firstname.toLowerCase().includes(searchString) ||
+      student.lastname.toLowerCase().includes(searchString) ||
+      student.house.toLowerCase().includes(searchString)
+    );
+  });
+  displayList(searchStudent);
 }
 
 async function loadJSON() {
@@ -191,6 +202,7 @@ function prepareObject(jsonObject) {
   }
   if (cleanMName.startsWith('"')) {
     student.middlename = "";
+    student.alias = cleanMName;
   }
 
   //   setting blood status
@@ -285,7 +297,7 @@ function filterSList(filter) {
   }
 
   console.log("status", filterStudents);
-  buildList(filterStudents);
+  displayList(filterStudents);
 }
 
 function filterHList(house) {
@@ -340,8 +352,11 @@ function showAll() {
 //build list
 function buildList() {
   console.log("buildList");
+  let regStudents = filterStudents.filter(
+    (student) => student.regStudent === true
+  );
 
-  displayList(filterStudents);
+  displayList(regStudents);
 }
 
 function displayList(students) {
@@ -402,52 +417,21 @@ function displayStudent(student) {
     .querySelector("[data-field=squad]")
     .addEventListener("click", squadClicked);
 
-  // function clickPrefects(clickedStudent) {
-  //     console.log(clickedStudent);
-
-  //     //creates an array for the prefects
-  //     const prefects = allStudents.filter((elm) => {
-  //       return elm.prefect === true;
-  //     });
-
-  //     // Determine the house of student in prefects array
-  //     const prefectsOfHouse = prefects.filter((elm) => {
-  //       return elm.house === clickedStudent.house;
-  //     });
-
-  //     // determine the clicked student by house and "allready prefect"
-  //     if (clickedStudent.prefect === true) {
-  //       console.log("remooove"); // doesent work for whatever reason
-  //       clickedStudent.prefect = false;
-  //     } else if (prefectsOfHouse) {
-  //       clickedStudent.prefect = false;
-  //     }
-
-  //     if (prefectsOfHouse.length > 1) {
-  //       clickedStudent.prefect = false;
-  //     } else {
-  //       clickedStudent.prefect = true;
-  //     }
-
-  //     // Stop the prefects array from going over 8
-  //     if (prefects.length > 7) {
-  //       clickedStudent.prefect = false;
-  //     }
-
-  //     displayList(allStudents);
-  //   }
-
   function prefClicked() {
-    if (student.prefect === true) {
-      student.prefect = false;
-      const index = prefects.indexOf(student);
-      prefects.splice(index, 1);
-      console.log("taking out of the array");
+    if (student.regStudent === true) {
+      if (student.prefect === true) {
+        student.prefect = false;
+        const index = prefects.indexOf(student);
+        prefects.splice(index, 1);
+        console.log("taking out of the array");
+      } else {
+        console.log("its your student");
+        student.prefect = true;
+        //   prefects.push(student);
+        checkPrefect(student);
+      }
     } else {
-      console.log("its your student");
-      student.prefect = true;
-      //   prefects.push(student);
-      checkPrefect(student);
+      student.prefect = false;
     }
     buildList();
   }
@@ -503,17 +487,35 @@ function displayStudent(student) {
   function openStudPU() {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
-    document.querySelector("#popup-name").textContent =
-      student.firstname + " " + student.middlename + " " + student.lastname;
+    if (student.alias) {
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.alias + " " + student.lastname;
+    } else {
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.middlename + " " + student.lastname;
+    }
 
     if (student.regStudent) {
       document.querySelector("#popup-status").textContent = "Regular Student";
       document.querySelector("#popup-status").classList.remove("red");
       document.querySelector("#popup-expell").classList.remove("hidden");
+      document.querySelector("#expelled-stamp").classList.add("hidden");
     } else {
       document.querySelector("#popup-status").textContent = "Expelled Student";
       document.querySelector("#popup-status").classList.add("red");
       document.querySelector("#popup-expell").classList.add("hidden");
+    }
+
+    if (student.prefect) {
+      document.querySelector("#popup-pref").classList.remove("hidden");
+    } else {
+      document.querySelector("#popup-pref").classList.add("hidden");
+    }
+
+    if (student.squad) {
+      document.querySelector("#popup-sq").classList.remove("hidden");
+    } else {
+      document.querySelector("#popup-sq").classList.add("hidden");
     }
 
     document.querySelector(
@@ -554,11 +556,14 @@ function displayStudent(student) {
     document
       .querySelector("#popup-expell")
       .addEventListener("click", clickExpel);
+
     buildList();
   }
 
   function clickExpel() {
     expelledStudents.push(student);
+    // const index = filterStudents.indexOf(student);
+    // filterStudents.splice(index, 1);
     student.regStudent = false;
     student.squad = false;
     student.prefect = false;
@@ -568,6 +573,8 @@ function displayStudent(student) {
     document.querySelector("#popup-status").textContent = "Expelled Student";
     document.querySelector("#popup-status").classList.add("red");
     document.querySelector("#popup-expell").classList.add("hidden");
+    document.querySelector("#expelled-stamp").classList.remove("hidden");
+    document.querySelector("#expelled-stamp").classList.add("fade-in");
 
     console.log(student.firstname + " is expelled");
     buildList();
