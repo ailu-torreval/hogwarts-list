@@ -11,12 +11,12 @@
 
 <body>
     <header>
-        <img src="/assets/hogwarts-banner.png" alt="" id="header-banner" width="700">
-        <button id="hack-btn">Hack the system</button>
+        <img src="/assets/hogwarts-banner.png" alt="" id="header-banner" width="500">
+
     </header>
+    <button id="hack-btn">Hack the system</button>
     <nav>
         <div id="filter-btns">
-            Filters:
             <button id="filter-pref" data-action="filterPS" data-filter="pref">See Prefects <span
                     id="pref-counter"></span> </button>
             <button id="filter-squad" data-action="filterPS" data-filter="squad">See Inquisitorial Squad <span
@@ -34,61 +34,80 @@
             <button id="all" data-action="filter" data-filter="*">See All <span id="all-counter"></span></button>
 
         </div>
-        <div id="right-nav">
-            <div id="house-filter">
-                <div id="search-box">
-                    <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
-                </div>
-                <p>Filter by House</p>
-                <div id="houses">
-                    <img id="grif-btn" data-action="filterH" data-filter="Gryffindor" src="/assets/gryff-crest.png"
-                        alt="" height="50">
-                    <img id="slyt-btn" data-action="filterH" data-filter="Slytherin" src="/assets/slyt-crest.png" alt=""
-                        id="slyt-crest" height="50">
-                    <img id="huff-btn" data-action="filterH" data-filter="Hufflepuff" src="/assets/huff-crest.png"
-                        alt="" id="huff-crest" height="50">
-                    <img id="rave-btn" data-action="filterH" data-filter="Ravenclaw" src="/assets/rave-crest.png" alt=""
-                        id="rave-crest" height="50">
-                </div>
+        <div id="house-filter">
+            <div id="search-box">
+                <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
             </div>
         </div>
     </nav>
     <main>
-        <table id="list">
-            <thead>
-                <tr id="sorting">
-                    <th data-action="sort" data-sort-direction="asc" data-sort="pref">Prefect</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="middlename">Middle Name</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="blood">Blood Status</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="status">Status</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="squad">Inquisitory Squad</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- print student here -->
-            </tbody>
-        </table>
+        <div id="main-grid">
+            <div id="house-filters">
+                <p id="house-p">Filter by House</p>
+                <div id="houses">
+                    <div data-action="filterH" data-filter="Gryffindor" id="gryff">
+                        <img id="grif-btn" data-action="filterH" data-filter="Gryffindor" src="/assets/gryffindor.png"
+                            alt="" height="50">
+                        <p data-action="filterH" data-filter="Gryffindor"> Gryffindor <span id="gryff-counter"></span>
+                        </p>
+                    </div>
+                    <div data-action="filterH" data-filter="Slytherin" id="slyt">
+                        <img data-action="filterH" data-filter="Slytherin" id="slyt-btn" src="/assets/slytherin.png"
+                            alt="" id="slyt-crest" height="50">
+                        <p data-action="filterH" data-filter="Slytherin"> Slytherin <span id="slyt-counter"></span></p>
+                    </div>
+                    <div data-action="filterH" data-filter="Hufflepuff" id="huff">
+                        <img id="huff-btn" data-action="filterH" data-filter="Hufflepuff" src="/assets/hufflepuff.png"
+                            alt="" id="huff-crest" height="50">
+                        <p data-action="filterH" data-filter="Hufflepuff"> Hufflepuff <span id="huff-counter"></span>
+                        </p>
+                    </div>
+                    <div data-action="filterH" data-filter="Ravenclaw" id="rave">
+                        <img id="rave-btn" data-action="filterH" data-filter="Ravenclaw" src="/assets/ravenclaw.png"
+                            alt="" id="rave-crest" height="50">
+                        <p data-action="filterH" data-filter="Ravenclaw"> Ravenclaw <span id="rave-counter"></span></p>
+                    </div>
+                </div>
 
-        <template id="student">
-            <tr id="student-info">
-                <td data-field="pref"><img class="pref-badge grey" src="/assets/prefect-badge.png" alt="prefect-badge"
-                        height="22" width="22"></td>
-                <td data-field="last-name">Last Name</td>
-                <td data-field="name">First Name</td>
-                <td data-field="middle-name">Middle Name</td>
-                <td data-field="house">House</td>
-                <td data-field="blood-status">Blood Status</td>
-                <td data-field="status">Status</td>
-                <td data-field="squad"><img src="/assets/i-squad.png" alt="inquisitory squad badge"
-                        class="inq-squad grey" height="22" width="22">
-                </td>
-            </tr>
-        </template>
+            </div>
+            <table id="list">
+                <thead>
+                    <tr id="sorting">
+                        <th data-action="sort" data-sort-direction="asc" data-sort="pref">Prefect</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="middlename">Middle Name</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="blood">Blood Status</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="status">Status</th>
+                        <th data-action="sort" data-sort-direction="asc" data-sort="squad">Inquisitory Squad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <template id="student">
+                <tr id="student-info">
+                    <td data-field="pref"><img class="pref-badge grey" src="/assets/prefect-badge.png"
+                            alt="prefect-badge" height="22" width="22"></td>
+                    <td data-field="last-name">Last Name</td>
+                    <td data-field="name">First Name</td>
+                    <td data-field="middle-name">Middle Name</td>
+                    <td data-field="house">House</td>
+                    <td data-field="blood-status">Blood Status</td>
+                    <td data-field="status">Status</td>
+                    <td data-field="squad"><img src="/assets/i-squad.png" alt="inquisitory squad badge"
+                            class="inq-squad grey" height="22" width="22">
+                    </td>
+                </tr>
+            </template>
+        </div>
         <div id="student-popup" class="hidden">
             <img src="/assets/expelled-stamp.png" alt="" id="expelled-stamp" class="hidden" height="95">
+            <img src="/assets/no-way.png" alt="" id="cant-expel-stamp" class="hidden" height="95">
+            <img src="/assets/sunglasses.png" alt="" id="sunglasses" class="hidden" height="65">
+
             <div id="popup-header">
                 <img src="" alt="" id="student-pic">
                 <div id="popup-title">
@@ -100,13 +119,15 @@
                 <img src="" alt="house-flag" id="house-flag">
                 <img src="" alt="house-logo" id="house-logo" height="50" width="50">
             </div>
-            <p id="popup-pref">Prefect</p>
-            <p id="popup-blood"></p>
-            <p id="popup-sq">Member of the Inquisitory Squad</p>
-            <p id="popup-stud-st">Student Status: <span id="popup-status">Regular Student</span></p>
-            <div id="popup-btns">
-                <button id="popup-close">Close Window</button>
-                <button id="popup-expell">Expell Student</button>
+            <div id="popup-txt">
+                <p id="popup-pref">Prefect</p>
+                <p id="popup-blood"></p>
+                <p id="popup-sq">Member of the Inquisitory Squad</p>
+                <p id="popup-stud-st">Student Status: <span id="popup-status">Regular Student</span></p>
+                <div id="popup-btns">
+                    <button id="popup-close">Close Window</button>
+                    <button id="popup-expell">Expell Student</button>
+                </div>
             </div>
 
 

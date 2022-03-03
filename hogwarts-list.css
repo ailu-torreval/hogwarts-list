@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap");
 
+:root {
+  --Gryffindor: #5f0a02;
+  --Slytherin: #164618;
+  --Hufflepuff: #8f7500;
+  --Ravenclaw: #0f2b64;
+}
+
 body {
   background-image: url("/assets/paper-txt.jpg");
   color: #3e0500;
@@ -22,6 +29,26 @@ main {
   color: red;
 }
 
+.in-out {
+  animation: in-out 1.7s ease 1;
+}
+
+@keyframes in-out {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 100;
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
 .fade-in {
   animation: fade-in 0.3s ease 1;
 }
@@ -41,13 +68,100 @@ main {
   }
 }
 
-#header-banner {
+.glasses {
+  animation: glasses 1.3s ease 1;
+}
+
+@keyframes glasses {
+  from {
+    transform: translateY(-20%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* #header-banner {
   margin-left: 25%;
+} */
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+#main-grid {
+  display: flex;
+  margin-left: 2vw;
+  margin-top: 2rem;
+  gap: 3vw;
+}
+
+#filter-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#filter-btns button {
+  font-family: "Charm", cursive;
+  font-size: 1.2rem;
+  background-color: #3e0500;
+  color: #f7e9c2;
+  padding: 0.5rem;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+  border-radius: 60px;
+}
+
+#house-filters {
+  font-family: "Charm", cursive;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+#house-p {
+  margin-top: 0;
+}
+
+#houses {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+#houses div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #3e0500;
+  color: #f7e9c2;
+  padding: 0.5rem;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+  border-radius: 60px;
+}
+
+#gryff:hover,
+#slyt:hover,
+#huff:hover,
+#rave:hover {
+  background-color: #5f0a02;
 }
 
 #sorting {
   font-family: "Charm", cursive;
   font-size: 1.3rem;
+}
+
+#list {
+  height: min-content;
+  margin-bottom: 5vw;
 }
 
 #list tbody tr:nth-child(odd) td {
@@ -79,13 +193,28 @@ main {
 }
 
 #student-popup {
-  background-image: url("/assets/paper-txt.jpg");
   position: fixed;
   box-shadow: 10px 10px 16px -1px rgba(62, 5, 0, 0.31);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid var(--Gryffindor);
   border-radius: 20px;
-  top: 35%;
-  left: 62%;
   padding: 2rem;
+  background-image: url("/assets/paper-txt.jpg");
+}
+
+#popup-txt {
+  padding: 1rem;
+  border-radius: 20px;
+}
+#house-logo {
+  position: absolute;
+  top: 39%;
+  right: 7%;
+}
+#house-flag {
+  margin-top: 5px;
 }
 
 #popup-header {
@@ -131,7 +260,8 @@ main {
   border: none;
 }
 
-#expelled-stamp {
+#expelled-stamp,
+#cant-expel-stamp {
   position: absolute;
   top: 55%;
   left: 21%;
@@ -145,4 +275,10 @@ main {
   top: 35%;
   left: 62%;
   padding: 2rem;
+}
+
+#sunglasses {
+  position: absolute;
+  top: 18%;
+  left: 13%;
 }

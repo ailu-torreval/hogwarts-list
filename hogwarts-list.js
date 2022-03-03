@@ -21,6 +21,7 @@ const Student = {
   squad: false,
   regStudent: true,
   cannotBeExpelled: false,
+  image: true,
 };
 
 const ailin = {
@@ -143,6 +144,13 @@ function prepareObject(jsonObject) {
     student.middlename = "";
     student.alias = cleanMName;
   }
+
+  if (student.lastname === "Leanne") {
+    student.image = false;
+  }
+  //   } else {
+  //       student.image = true;
+  //   }
 
   //   setting blood status
   let pureBlooded = familiesArray.pure;
@@ -379,6 +387,34 @@ function displayStudent(student) {
     "#muggle-counter"
   ).textContent = `(${countingMuggles.length})`;
 
+  let countingSlyt = allStudents.filter(
+    (student) => student.house === "Slytherin"
+  );
+  document.querySelector(
+    "#slyt-counter"
+  ).textContent = `(${countingSlyt.length})`;
+
+  let countingHuff = allStudents.filter(
+    (student) => student.house === "Hufflepuff"
+  );
+  document.querySelector(
+    "#huff-counter"
+  ).textContent = `(${countingHuff.length})`;
+
+  let countingRave = allStudents.filter(
+    (student) => student.house === "Ravenclaw"
+  );
+  document.querySelector(
+    "#rave-counter"
+  ).textContent = `(${countingRave.length})`;
+
+  let countingGryff = allStudents.filter(
+    (student) => student.house === "Gryffindor"
+  );
+  document.querySelector(
+    "#gryff-counter"
+  ).textContent = `(${countingGryff.length})`;
+
   // adding event listeners to students for popup and prefect and squad features
   clone
     .querySelector("[data-field=last-name]")
@@ -422,6 +458,7 @@ function displayStudent(student) {
     if (student.prefect === true) {
       if (nrHouse >= 2) {
         console.log("you can have only 2 per house", prefectsHouse);
+        //show popup
         student.prefect = false;
       } else {
         makePrefect(student);
@@ -490,6 +527,11 @@ function displayStudent(student) {
   function openStudPU() {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
+    document.querySelector("#sunglasses").classList.add("hidden");
+
+    if (student.image === false) {
+      console.log("show leanne pic");
+    }
     if (student.alias) {
       document.querySelector("#popup-name").textContent =
         student.firstname + " " + student.alias + " " + student.lastname;
@@ -520,7 +562,9 @@ function displayStudent(student) {
     } else {
       document.querySelector("#popup-sq").classList.add("hidden");
     }
-
+    document.querySelector(
+      "#student-popup"
+    ).style.borderColor = `var(--${student.house})`;
     document.querySelector(
       "#house-flag"
     ).src = `/assets/${student.house}-flag.svg`;
@@ -528,7 +572,6 @@ function displayStudent(student) {
 
     document.querySelector("#popup-house").textContent = student.house;
     document.querySelector("#popup-blood").textContent = student.blood;
-
 
     //getting the images with the propper name
 
@@ -541,23 +584,16 @@ function displayStudent(student) {
         imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
       document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
-
     } else if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
       ).src = `/students-pics/${student.lastname}_${student.firstname}.png`;
-
     } else {
       document.querySelector("#student-pic").src = `/students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
     }
 
-    
-
-    if (student.cannotBeExpelled) {
-      document.querySelector("#popup-expell").classList.add("hidden");
-    }
     //event listeners for expelling student and closing window
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
@@ -588,7 +624,15 @@ function displayStudent(student) {
       console.log(student.firstname + " is expelled");
       buildList();
     } else {
-      console.log("");
+      document.querySelector("#cant-expel-stamp").classList.remove("hidden");
+      document.querySelector("#cant-expel-stamp").classList.add("in-out");
+      document
+        .querySelector("#cant-expel-stamp")
+        .addEventListener("animationend", function () {
+          document.querySelector("#cant-expel-stamp").classList.add("hidden");
+        });
+      document.querySelector("#sunglasses").classList.remove("hidden");
+      document.querySelector("#sunglasses").classList.add("glasses");
     }
   }
 
