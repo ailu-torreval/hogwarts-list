@@ -1,87 +1,4 @@
 "use strict";
-
-const pureBloodFamilies = [
-  "Boot",
-  "Cornfoot",
-  "Abbott",
-  "Avery",
-  "Black",
-  "Blishwick",
-  "Brown",
-  "Bulstrode",
-  "Burke",
-  "Carrow",
-  "Crabbe",
-  "Crouch",
-  "Fawley",
-  "Flint",
-  "Gamp",
-  "Gaunt",
-  "Goyle",
-  "Greengrass",
-  "Kama",
-  "Lestrange",
-  "Longbottom",
-  "MacDougal",
-  "Macmillan",
-  "Malfoy",
-  "Max",
-  "Moody",
-  "Nott",
-  "Ollivander",
-  "Parkinson",
-  "Peverell",
-  "Potter",
-  "Prewett",
-  "Prince",
-  "Rosier",
-  "Rowle",
-  "Sayre",
-  "Selwyn",
-  "Shacklebolt",
-  "Shafiq",
-  "Slughorn",
-  "Slytherin",
-  "Travers",
-  "Tremblay",
-  "Tripe",
-  "Urquart",
-  "Weasley",
-  "Yaxley",
-  "Bletchley",
-  "Dumbledore",
-  "Fudge",
-  "Gibbon",
-  "Gryffindor",
-  "Higgs",
-  "Lowe",
-  "Macnair",
-  "Montague",
-  "Mulciber",
-  "Orpington",
-  "Pyrites",
-  "Perks",
-  "Runcorn",
-  "Wilkes",
-  "Zabini",
-];
-
-const halfBloodFamilies = [
-  "Abbott",
-  "Bones",
-  "Jones",
-  "Hopkins",
-  "Finnigan",
-  "Potter",
-  "Brocklehurst",
-  "Goldstein",
-  "Corner",
-  "Bulstrode",
-  "Patil",
-  "Li",
-  "Thomas",
-];
-
 window.addEventListener("DOMContentLoaded", setup);
 
 let systemHacked = false;
@@ -90,6 +7,7 @@ let filterStudents;
 let expelledStudents = [];
 let squadStudents = [];
 let prefects = [];
+let bloodArray = [];
 
 const Student = {
   firstname: "",
@@ -165,10 +83,15 @@ function setup() {
 }
 
 async function loadJSON() {
-  const response = await fetch(
+  const studentsData = await fetch(
     "https://petlatkea.dk/2021/hogwarts/students.json"
   );
-  const jsonData = await response.json();
+  const jsonData = await studentsData.json();
+
+  const familiesData = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/families.json"
+  );
+  bloodArray = await familiesData.json();
 
   // when loaded, prepare data objects
   prepareObjects(jsonData);
@@ -223,10 +146,12 @@ function prepareObject(jsonObject) {
   }
 
   //   setting blood status
+  let pureBlooded = bloodArray.pure;
+  let halfBlooded = bloodArray.half;
 
-  if (pureBloodFamilies.includes(student.lastname)) {
+  if (pureBlooded.includes(student.lastname)) {
     student.blood = "Pure Blood";
-  } else if (halfBloodFamilies.includes(student.lastname)) {
+  } else if (halfBlooded.includes(student.lastname)) {
     student.blood = "Half-Blood";
   } else {
     student.blood = "Muggle";
