@@ -17,21 +17,27 @@
     <nav>
         <div id="filter-btns">
             Filters:
-            <button id="filter-pref" data-action="filterPS" data-filter="pref">See Prefects</button>
-            <button id="filter-squad" data-action="filterPS" data-filter="squad">See Inquisitorial Squad</button>
-            <button id="filter-reg" data-action="filterS" data-filter="regular">See Regular Students</button>
-            <button id="filter-expelled" data-action="filterS" data-filter="expelled">See Expelled Students</button>
-            <button id="filter-pure" data-action="filterB" data-filter="Pure Blood">See Pure Bloods</button>
-            <button id="filter-half" data-action="filterB" data-filter="Half-Blood">See Half-Bloods</button>
-            <button id="filter-muggle" data-action="filterB" data-filter="Muggle">See Muggles</button>
-            <button id="all" data-action="filter" data-filter="*">See All</button>
+            <button id="filter-pref" data-action="filterPS" data-filter="pref">See Prefects <span
+                    id="pref-counter"></span> </button>
+            <button id="filter-squad" data-action="filterPS" data-filter="squad">See Inquisitorial Squad <span
+                    id="squad-counter"></span> </button>
+            <button id="filter-reg" data-action="filterS" data-filter="regular">See Regular Students <span
+                    id="reg-counter"></span> </button>
+            <button id="filter-expelled" data-action="filterS" data-filter="expelled">See Expelled Students <span
+                    id="expell-counter"></span> </button>
+            <button id="filter-pure" data-action="filterB" data-filter="Pure Blood">See Pure Bloods <span
+                    id="pureb-counter"></span> </button>
+            <button id="filter-half" data-action="filterB" data-filter="Half-Blood">See Half-Bloods <span
+                    id="halfb-counter"></span> </button>
+            <button id="filter-muggle" data-action="filterB" data-filter="Muggle">See Muggles <span
+                    id="muggle-counter"></span> </button>
+            <button id="all" data-action="filter" data-filter="*">See All <span id="all-counter"></span></button>
 
         </div>
         <div id="right-nav">
             <div id="house-filter">
                 <div id="search-box">
                     <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
-                    <button id="search-btn">Search</button>
                 </div>
                 <p>Filter by House</p>
                 <div id="houses">
