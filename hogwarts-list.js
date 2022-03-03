@@ -7,7 +7,7 @@ let filterStudents;
 let expelledStudents = [];
 let squadStudents = [];
 let prefects = [];
-let bloodArray = [];
+let familiesArray = [];
 
 const Student = {
   firstname: "",
@@ -20,7 +20,6 @@ const Student = {
   prefect: false,
   squad: false,
   regStudent: true,
-  siblings: false,
   cannotBeExpelled: false,
 };
 
@@ -91,7 +90,7 @@ async function loadJSON() {
   const familiesData = await fetch(
     "https://petlatkea.dk/2021/hogwarts/families.json"
   );
-  bloodArray = await familiesData.json();
+  familiesArray = await familiesData.json();
 
   // when loaded, prepare data objects
   prepareObjects(jsonData);
@@ -146,8 +145,8 @@ function prepareObject(jsonObject) {
   }
 
   //   setting blood status
-  let pureBlooded = bloodArray.pure;
-  let halfBlooded = bloodArray.half;
+  let pureBlooded = familiesArray.pure;
+  let halfBlooded = familiesArray.half;
 
   if (pureBlooded.includes(student.lastname)) {
     student.blood = "Pure Blood";
@@ -165,7 +164,6 @@ function prepareObject(jsonObject) {
   student.squad = false;
   student.prefect = false;
   student.cannotBeExpelled = false;
-  //checking siblings for patil issue
   return student;
 }
 
@@ -341,7 +339,7 @@ function displayStudent(student) {
     clone.querySelector(".inq-squad").classList.add("grey");
   }
 
-  //set counters
+  //setting counters
   document.querySelector(
     "#all-counter"
   ).textContent = `(${allStudents.length})`;
@@ -531,36 +529,38 @@ function displayStudent(student) {
     document.querySelector("#popup-house").textContent = student.house;
     document.querySelector("#popup-blood").textContent = student.blood;
 
-    document.querySelector("#student-pic").src = `/students-pics/${
-      student.lastname
-    }_${student.firstname.charAt(0)}.png`;
+
+    //getting the images with the propper name
 
     if (student.lastname.includes("-")) {
       let urlImage;
-
       let imglastName = student.lastname.substring(
         student.lastname.indexOf("-") + 1
       );
-
       urlImage =
         imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
-
       console.log(urlImage);
-
       document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
+
+    } else if (student.lastname === "Patil") {
+      document.querySelector(
+        "#student-pic"
+      ).src = `/students-pics/${student.lastname}_${student.firstname}.png`;
+
     } else {
       document.querySelector("#student-pic").src = `/students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
     }
-    // for padma parvitti
 
-    document.querySelector("#popup-close").addEventListener("click", closePU);
+    
 
     if (student.cannotBeExpelled) {
       document.querySelector("#popup-expell").classList.add("hidden");
     }
-    //event listener for expelling student
+    //event listeners for expelling student and closing window
+    document.querySelector("#popup-close").addEventListener("click", closePU);
+
     document
       .querySelector("#popup-expell")
       .addEventListener("click", clickExpel);
