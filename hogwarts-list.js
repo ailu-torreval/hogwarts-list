@@ -100,7 +100,7 @@ async function loadJSON() {
 function prepareObjects(jsonData) {
   allStudents = jsonData.map(prepareObject);
   filterStudents = allStudents;
-  displayList(filterStudents);
+  buildList(filterStudents);
   console.log("jsonData", jsonData);
   return filterStudents;
   //   prepareObject(allStudents);
@@ -320,6 +320,8 @@ function displayStudent(student) {
     .querySelector("template#student")
     .content.cloneNode(true);
 
+  counters();
+
   // set clone data
   clone.querySelector("[data-field=name]").textContent = student.firstname;
   clone.querySelector("[data-field=middle-name]").textContent =
@@ -346,74 +348,6 @@ function displayStudent(student) {
   } else {
     clone.querySelector(".inq-squad").classList.add("grey");
   }
-
-  //setting counters
-  document.querySelector(
-    "#all-counter"
-  ).textContent = `(${allStudents.length})`;
-  document.querySelector("#pref-counter").textContent = `(${prefects.length})`;
-  document.querySelector(
-    "#squad-counter"
-  ).textContent = `(${squadStudents.length})`;
-  document.querySelector(
-    "#expell-counter"
-  ).textContent = `(${expelledStudents.length})`;
-
-  let countingRegStudents = allStudents.filter(
-    (student) => student.regStudent === true
-  );
-  document.querySelector(
-    "#reg-counter"
-  ).textContent = `(${countingRegStudents.length})`;
-
-  let countingPureBloods = allStudents.filter(
-    (student) => student.blood === "Pure Blood"
-  );
-  document.querySelector(
-    "#pureb-counter"
-  ).textContent = `(${countingPureBloods.length})`;
-
-  let countingHalfBloods = allStudents.filter(
-    (student) => student.blood === "Half-Blood"
-  );
-  document.querySelector(
-    "#halfb-counter"
-  ).textContent = `(${countingHalfBloods.length})`;
-
-  let countingMuggles = allStudents.filter(
-    (student) => student.blood === "Muggle"
-  );
-  document.querySelector(
-    "#muggle-counter"
-  ).textContent = `(${countingMuggles.length})`;
-
-  let countingSlyt = allStudents.filter(
-    (student) => student.house === "Slytherin"
-  );
-  document.querySelector(
-    "#slyt-counter"
-  ).textContent = `(${countingSlyt.length})`;
-
-  let countingHuff = allStudents.filter(
-    (student) => student.house === "Hufflepuff"
-  );
-  document.querySelector(
-    "#huff-counter"
-  ).textContent = `(${countingHuff.length})`;
-
-  let countingRave = allStudents.filter(
-    (student) => student.house === "Ravenclaw"
-  );
-  document.querySelector(
-    "#rave-counter"
-  ).textContent = `(${countingRave.length})`;
-
-  let countingGryff = allStudents.filter(
-    (student) => student.house === "Gryffindor"
-  );
-  document.querySelector(
-    "#gryff-counter"
-  ).textContent = `(${countingGryff.length})`;
 
   // adding event listeners to students for popup and prefect and squad features
   clone
@@ -457,9 +391,12 @@ function displayStudent(student) {
 
     if (student.prefect === true) {
       if (nrHouse >= 2) {
+        student.prefect = false;
         console.log("you can have only 2 per house", prefectsHouse);
         //show popup
-        student.prefect = false;
+        document.querySelector("#pref-popup").classList.remove("hidden");
+        document.querySelector("#pref-house").textContent = student.house;
+        document.querySelector("#pref-btn").addEventListener("click", closePU);
       } else {
         makePrefect(student);
         console.log("make prefect");
@@ -489,6 +426,7 @@ function displayStudent(student) {
           }
         } else {
           console.log("you cant be squad");
+          // document.querySelector("#squad-popup").classList.remove("hidden");
           document.querySelector("#squad-popup").classList.remove("hidden");
           document
             .querySelector("#squad-btn")
@@ -607,8 +545,6 @@ function displayStudent(student) {
   function clickExpel() {
     if (student.cannotBeExpelled === false) {
       expelledStudents.push(student);
-      // const index = filterStudents.indexOf(student);
-      // filterStudents.splice(index, 1);
       student.regStudent = false;
       student.squad = false;
       student.prefect = false;
@@ -639,6 +575,76 @@ function displayStudent(student) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
+//setting counters
+function counters() {
+  document.querySelector(
+    "#all-counter"
+  ).textContent = `(${allStudents.length})`;
+  document.querySelector("#pref-counter").textContent = `(${prefects.length})`;
+  document.querySelector(
+    "#squad-counter"
+  ).textContent = `(${squadStudents.length})`;
+  document.querySelector(
+    "#expell-counter"
+  ).textContent = `(${expelledStudents.length})`;
+
+  let countingRegStudents = allStudents.filter(
+    (student) => student.regStudent === true
+  );
+  document.querySelector(
+    "#reg-counter"
+  ).textContent = `(${countingRegStudents.length})`;
+
+  let countingPureBloods = allStudents.filter(
+    (student) => student.blood === "Pure Blood"
+  );
+  document.querySelector(
+    "#pureb-counter"
+  ).textContent = `(${countingPureBloods.length})`;
+
+  let countingHalfBloods = allStudents.filter(
+    (student) => student.blood === "Half-Blood"
+  );
+  document.querySelector(
+    "#halfb-counter"
+  ).textContent = `(${countingHalfBloods.length})`;
+
+  let countingMuggles = allStudents.filter(
+    (student) => student.blood === "Muggle"
+  );
+  document.querySelector(
+    "#muggle-counter"
+  ).textContent = `(${countingMuggles.length})`;
+
+  let countingSlyt = allStudents.filter(
+    (student) => student.house === "Slytherin"
+  );
+  document.querySelector(
+    "#slyt-counter"
+  ).textContent = `(${countingSlyt.length})`;
+
+  let countingHuff = allStudents.filter(
+    (student) => student.house === "Hufflepuff"
+  );
+  document.querySelector(
+    "#huff-counter"
+  ).textContent = `(${countingHuff.length})`;
+
+  let countingRave = allStudents.filter(
+    (student) => student.house === "Ravenclaw"
+  );
+  document.querySelector(
+    "#rave-counter"
+  ).textContent = `(${countingRave.length})`;
+
+  let countingGryff = allStudents.filter(
+    (student) => student.house === "Gryffindor"
+  );
+  document.querySelector(
+    "#gryff-counter"
+  ).textContent = `(${countingGryff.length})`;
+}
+
 function searchBar(e) {
   const searchString = e.target.value.toLowerCase();
   const searchStudent = allStudents.filter((student) => {
@@ -652,9 +658,12 @@ function searchBar(e) {
 }
 
 function hackTheSystem() {
+  document.querySelector("#bg").style.backgroundImage =
+    "url(/assets/hack-paper-txt.jpg)";
   document
     .querySelector("#hack-btn")
     .removeEventListener("click", hackTheSystem);
+  document.querySelector("#hack-btn").classList.add("hidden");
   systemHacked = true;
   allStudents.push(ailin);
   allStudents.push(marina);
@@ -667,7 +676,7 @@ function randomBlood(student) {
   console.log(student);
   if (student.blood === "Pure Blood") {
     if (student.cannotBeExpelled === false) {
-      const types = ["Muggle", "Half Blood"];
+      const types = ["Muggle", "Half-Blood"];
       const randomNumber = Math.floor(Math.random() * 2);
       student.blood = types[randomNumber];
       console.log(student.blood);
@@ -680,6 +689,7 @@ function randomBlood(student) {
 }
 
 function closePU() {
+  console.log("close pu");
   document.querySelector("#student-popup").classList.add("hidden");
   document.querySelector("#pref-popup").classList.add("hidden");
   document.querySelector("#squad-popup").classList.add("hidden");

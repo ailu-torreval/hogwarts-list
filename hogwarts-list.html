@@ -9,12 +9,16 @@
     <link rel="stylesheet" href="hogwarts-list.css">
 </head>
 
-<body>
+<body id="bg">
     <header>
         <img src="/assets/hogwarts-banner.png" alt="" id="header-banner" width="500">
 
     </header>
-    <button id="hack-btn">Hack the system</button>
+    <div id="search-box">
+        <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
+        <img src="assets/search-icon.png" alt="search icon" width="20" height="20">
+    </div>
+    <img src="/assets/hack-btn.png" alt="" id="hack-btn" height="30">
     <nav>
         <div id="filter-btns">
             <button id="filter-pref" data-action="filterPS" data-filter="pref">See Prefects <span
@@ -33,11 +37,6 @@
                     id="muggle-counter"></span> </button>
             <button id="all" data-action="filter" data-filter="*">See All <span id="all-counter"></span></button>
 
-        </div>
-        <div id="house-filter">
-            <div id="search-box">
-                <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
-            </div>
         </div>
     </nav>
     <main>
@@ -135,8 +134,8 @@
         </div>
         </div>
         <div id="pref-popup" class="hidden">
-            <p>Only 2 students per house can be Prefects. <br>
-                Remove other prefect to continue.</p>
+            <p>Only 2 students per house can be Prefects. <br><br>
+                Remove other Prefect from House <span id="pref-house"></span> to continue.</p>
             <button id="pref-btn">OK</button>
         </div>
         <div id="squad-popup" class="hidden">

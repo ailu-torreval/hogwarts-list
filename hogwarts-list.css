@@ -5,11 +5,14 @@
   --Slytherin: #164618;
   --Hufflepuff: #8f7500;
   --Ravenclaw: #0f2b64;
+  --light: #f7e9c2;
+  --beige: #e7d7a9;
+  --dark: #3e0500;
 }
 
-body {
+#bg {
   background-image: url("/assets/paper-txt.jpg");
-  color: #3e0500;
+  color: var(--dark);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -18,7 +21,7 @@ main {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .grey {
@@ -30,7 +33,7 @@ main {
 }
 
 .in-out {
-  animation: in-out 1.7s ease 1;
+  animation: in-out 2s ease 1;
 }
 
 @keyframes in-out {
@@ -90,6 +93,21 @@ header {
   justify-content: center;
 }
 
+#search-bar {
+  border: none;
+  padding: 0.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: #e7d8a9a2;
+}
+
+#search-box {
+  border-bottom: 1px solid var(--dark);
+  width: max-content;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
 #main-grid {
   display: flex;
   margin-left: 2vw;
@@ -101,7 +119,7 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -109,12 +127,16 @@ header {
 #filter-btns button {
   font-family: "Charm", cursive;
   font-size: 1.2rem;
-  background-color: #3e0500;
-  color: #f7e9c2;
+  background-color: var(--dark);
+  color: var(--light);
   padding: 0.5rem;
   padding-left: 1.1rem;
   padding-right: 1.1rem;
   border-radius: 60px;
+}
+
+#filter-btns button:hover {
+  background-color: #5f0a02;
 }
 
 #house-filters {
@@ -139,8 +161,8 @@ header {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #3e0500;
-  color: #f7e9c2;
+  background-color: var(--dark);
+  color: var(--light);
   padding: 0.5rem;
   padding-left: 1.1rem;
   padding-right: 1.1rem;
@@ -165,13 +187,13 @@ header {
 }
 
 #list tbody tr:nth-child(odd) td {
-  background-color: #e7d7a9;
-  border-right: #f7e9c2 1px dotted;
+  background-color: var(--beige);
+  border-right: var(--light) 1px dotted;
 }
 
 #list tbody tr:nth-child(even) td {
-  border-right: #e7d7a9 1px dotted;
-  background-color: #f7e9c2;
+  border-right: var(--beige) 1px dotted;
+  background-color: var(--light);
 }
 
 #sorting th,
@@ -267,18 +289,63 @@ header {
   left: 21%;
 }
 
-#squad-popup {
-  background-image: url("/assets/paper-txt.jpg");
-  position: fixed;
+#squad-popup,
+#pref-popup {
+  color: var(--light);
+  background-color: var(--dark);
   box-shadow: 10px 10px 16px -1px rgba(62, 5, 0, 0.31);
   border-radius: 20px;
-  top: 35%;
-  left: 62%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#squad-btn,
+#pref-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--beige);
+  color: var(--dark);
+  border: none;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+#squad-btn:hover,
+#pref-btn:hover {
+  background: var(--light);
 }
 
 #sunglasses {
   position: absolute;
-  top: 18%;
-  left: 13%;
+  top: 15%;
+  left: 10%;
+}
+
+#hack-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  animation: show-btn 2s ease infinite;
+}
+
+@keyframes show-btn {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 100;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
 }
