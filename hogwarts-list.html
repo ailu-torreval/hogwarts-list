@@ -11,14 +11,14 @@
 
 <body id="bg">
     <header>
-        <img src="/assets/hogwarts-banner.png" alt="" id="header-banner" width="500">
+        <img src="./assets/hogwarts-banner.png" alt="" id="header-banner" width="500">
 
     </header>
     <div id="search-box">
         <input id="search-bar" type="search" placeholder="Search by name.." name="search" />
         <img src="assets/search-icon.png" alt="search icon" width="20" height="20">
     </div>
-    <img src="/assets/hack-btn.png" alt="" id="hack-btn" height="30">
+    <img src="./assets/hack-btn.png" alt="" id="hack-btn" height="30">
     <nav>
         <div id="filter-btns">
             <button id="filter-pref" data-action="filterPS" data-filter="pref">See Prefects <span
@@ -45,24 +45,24 @@
                 <p id="house-p">Filter by House</p>
                 <div id="houses">
                     <div data-action="filterH" data-filter="Gryffindor" id="gryff">
-                        <img id="grif-btn" data-action="filterH" data-filter="Gryffindor" src="/assets/gryffindor.png"
+                        <img id="grif-btn" data-action="filterH" data-filter="Gryffindor" src="./assets/gryffindor.png"
                             alt="" height="50">
                         <p data-action="filterH" data-filter="Gryffindor"> Gryffindor <span id="gryff-counter"></span>
                         </p>
                     </div>
                     <div data-action="filterH" data-filter="Slytherin" id="slyt">
-                        <img data-action="filterH" data-filter="Slytherin" id="slyt-btn" src="/assets/slytherin.png"
+                        <img data-action="filterH" data-filter="Slytherin" id="slyt-btn" src="./assets/slytherin.png"
                             alt="" id="slyt-crest" height="50">
                         <p data-action="filterH" data-filter="Slytherin"> Slytherin <span id="slyt-counter"></span></p>
                     </div>
                     <div data-action="filterH" data-filter="Hufflepuff" id="huff">
-                        <img id="huff-btn" data-action="filterH" data-filter="Hufflepuff" src="/assets/hufflepuff.png"
+                        <img id="huff-btn" data-action="filterH" data-filter="Hufflepuff" src="./assets/hufflepuff.png"
                             alt="" id="huff-crest" height="50">
                         <p data-action="filterH" data-filter="Hufflepuff"> Hufflepuff <span id="huff-counter"></span>
                         </p>
                     </div>
                     <div data-action="filterH" data-filter="Ravenclaw" id="rave">
-                        <img id="rave-btn" data-action="filterH" data-filter="Ravenclaw" src="/assets/ravenclaw.png"
+                        <img id="rave-btn" data-action="filterH" data-filter="Ravenclaw" src="./assets/ravenclaw.png"
                             alt="" id="rave-crest" height="50">
                         <p data-action="filterH" data-filter="Ravenclaw"> Ravenclaw <span id="rave-counter"></span></p>
                     </div>
@@ -88,7 +88,7 @@
 
             <template id="student">
                 <tr id="student-info">
-                    <td data-field="pref"><img class="pref-badge grey" src="/assets/prefect-badge.png"
+                    <td data-field="pref"><img class="pref-badge grey" src="./assets/prefect-badge.png"
                             alt="prefect-badge" height="22" width="22"></td>
                     <td data-field="last-name">Last Name</td>
                     <td data-field="name">First Name</td>
@@ -96,16 +96,16 @@
                     <td data-field="house">House</td>
                     <td data-field="blood-status">Blood Status</td>
                     <td data-field="status">Status</td>
-                    <td data-field="squad"><img src="/assets/i-squad.png" alt="inquisitory squad badge"
+                    <td data-field="squad"><img src="./assets/i-squad.png" alt="inquisitory squad badge"
                             class="inq-squad grey" height="22" width="22">
                     </td>
                 </tr>
             </template>
         </div>
         <div id="student-popup" class="hidden">
-            <img src="/assets/expelled-stamp.png" alt="" id="expelled-stamp" class="hidden" height="95">
-            <img src="/assets/no-way.png" alt="" id="cant-expel-stamp" class="hidden" height="95">
-            <img src="/assets/sunglasses.png" alt="" id="sunglasses" class="hidden" height="65">
+            <img src="./assets/expelled-stamp.png" alt="" id="expelled-stamp" class="hidden" height="95">
+            <img src="./assets/no-way.png" alt="" id="cant-expel-stamp" class="hidden" height="95">
+            <img src="./assets/sunglasses.png" alt="" id="sunglasses" class="hidden" height="65">
 
             <div id="popup-header">
                 <img src="" alt="" id="student-pic">
