@@ -505,8 +505,8 @@ function displayStudent(student) {
     ).style.borderColor = `var(--${student.house})`;
     document.querySelector(
       "#house-flag"
-    ).src = `/assets/${student.house}-flag.svg`;
-    document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
+    ).src = `./assets/${student.house}-flag.svg`;
+    document.querySelector("#house-logo").src = `./assets/${student.house}.png`;
 
     document.querySelector("#popup-house").textContent = student.house;
     document.querySelector("#popup-blood").textContent = student.blood;
@@ -521,13 +521,15 @@ function displayStudent(student) {
       urlImage =
         imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
-      document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
+      document.querySelector(
+        "#student-pic"
+      ).src = `./students-pics/${urlImage}`;
     } else if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
-      ).src = `/students-pics/${student.lastname}_${student.firstname}.png`;
+      ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
     } else {
-      document.querySelector("#student-pic").src = `/students-pics/${
+      document.querySelector("#student-pic").src = `./students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
     }
