@@ -659,7 +659,7 @@ function searchBar(e) {
 
 function hackTheSystem() {
   document.querySelector("#bg").style.backgroundImage =
-    "url(/assets/hack-paper-txt.jpg)";
+    "url(./assets/hack-paper-txt.jpg)";
   document
     .querySelector("#hack-btn")
     .removeEventListener("click", hackTheSystem);

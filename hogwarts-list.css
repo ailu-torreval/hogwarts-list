@@ -11,7 +11,7 @@
 }
 
 #bg {
-  background-image: url("/assets/paper-txt.jpg");
+  background-image: url("./assets/paper-txt.jpg");
   color: var(--dark);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
