@@ -223,7 +223,7 @@ header {
   border: 5px solid var(--Gryffindor);
   border-radius: 20px;
   padding: 2rem;
-  background-image: url("/assets/paper-txt.jpg");
+  background-image: url("./assets/paper-txt.jpg");
 }
 
 #popup-txt {
