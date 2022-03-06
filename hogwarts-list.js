@@ -531,7 +531,7 @@ function displayStudent(student) {
       ).src = `./students-pics/${urlImage}`;
     } else if (student.lastname === "Patil") {
       document.querySelector("#student-pic").src =
-        "./students-pic/" +
+        "./students-pics/" +
         student.lastname.toLowerCase() +
         "_" +
         student.firstname.toLowerCase() +
