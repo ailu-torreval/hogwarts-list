@@ -438,7 +438,7 @@ function displayStudent(student) {
     if (student.blood === "Pure Blood" || student.house === "Slytherin") {
       squadStudents.push(student);
       student.squad = true;
-      setTimeout(squadHacked, 5000);
+      setTimeout(squadHacked, 3000);
     } else {
       console.log("you cant be squad");
       document.querySelector("#squad-popup").classList.remove("hidden");
@@ -448,7 +448,9 @@ function displayStudent(student) {
   }
 
   function squadHacked() {
+    document.querySelector("#whoosh-sound").play();
     student.squad = false;
+    document.querySelector("#whoosh-sound").play();
     const index = squadStudents.indexOf(student);
     squadStudents.splice(index, 1);
     buildList();
@@ -525,7 +527,7 @@ function displayStudent(student) {
         "_" +
         student.firstname.toLowerCase() +
         ".png";
-    } else if ((student.lastname = "Leanne")) {
+    } else if (student.lastname === "Leanne") {
       document.querySelector("#student-pic").src = "./students-pics/no-pic.png";
     } else {
       document.querySelector("#student-pic").src =
@@ -564,16 +566,20 @@ function displayStudent(student) {
       console.log(student.firstname + " is expelled");
       buildList();
     } else {
-      document.querySelector("#cant-expel-stamp").classList.remove("hidden");
-      document.querySelector("#cant-expel-stamp").classList.add("in-out");
-      document
-        .querySelector("#cant-expel-stamp")
-        .addEventListener("animationend", function () {
-          document.querySelector("#cant-expel-stamp").classList.add("hidden");
-        });
-      document.querySelector("#sunglasses").classList.remove("hidden");
-      document.querySelector("#sunglasses").classList.add("glasses");
+      cantExpel();
     }
+  }
+  function cantExpel() {
+    document.querySelector("#no-way-sound").play();
+    document.querySelector("#cant-expel-stamp").classList.remove("hidden");
+    document.querySelector("#cant-expel-stamp").classList.add("in-out");
+    document
+      .querySelector("#cant-expel-stamp")
+      .addEventListener("animationend", function () {
+        document.querySelector("#cant-expel-stamp").classList.add("hidden");
+      });
+    document.querySelector("#sunglasses").classList.remove("hidden");
+    document.querySelector("#sunglasses").classList.add("glasses");
   }
 
   document.querySelector("#list tbody").appendChild(clone);
@@ -662,6 +668,7 @@ function searchBar(e) {
 }
 
 function hackTheSystem() {
+  document.querySelector("#hack-sound").play();
   document.querySelector("#bg").style.backgroundImage =
     "url(./assets/hack-paper-txt.jpg)";
   document
