@@ -21,7 +21,6 @@ const Student = {
   squad: false,
   regStudent: true,
   cannotBeExpelled: false,
-  image: true,
 };
 
 const ailin = {
@@ -144,13 +143,6 @@ function prepareObject(jsonObject) {
     student.middlename = "";
     student.alias = cleanMName;
   }
-
-  if (student.lastname === "Leanne") {
-    student.image = false;
-  }
-  //   } else {
-  //       student.image = true;
-  //   }
 
   //   setting blood status
   let pureBlooded = familiesArray.pure;
@@ -467,9 +459,6 @@ function displayStudent(student) {
     document.querySelector("#student-popup").classList.remove("hidden");
     document.querySelector("#sunglasses").classList.add("hidden");
 
-    if (student.image === false) {
-      console.log("show leanne pic");
-    }
     if (student.alias) {
       document.querySelector("#popup-name").textContent =
         student.firstname + " " + student.alias + " " + student.lastname;
@@ -536,6 +525,8 @@ function displayStudent(student) {
         "_" +
         student.firstname.toLowerCase() +
         ".png";
+    } else if ((student.lastname = "Leanne")) {
+      document.querySelector("#student-pic").src = "./students-pics/no-pic.png";
     } else {
       document.querySelector("#student-pic").src =
         "./students-pics/" +
