@@ -513,29 +513,29 @@ function displayStudent(student) {
 
     //getting the images with the propper name
 
-    if (student.lastname.includes("-")) {
-      let urlImage;
-      let imglastName = student.lastname.substring(
-        student.lastname.indexOf("-") + 1
-      );
-      urlImage =
-        imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
-      console.log(urlImage);
-      document.querySelector(
-        "#student-pic"
-      ).src = `./students-pics/${urlImage}`;
-    } else if (student.lastname === "Patil") {
-      document.querySelector(
-        "#student-pic"
-      ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
-    } else {
-      document.querySelector("#student-pic").src =
-        "./students-pics/" +
-        student.lastname.toLowerCase() +
-        "_" +
-        student.firstname[0].substring(0, 1).toLowerCase() +
-        ".png";
-    }
+    // if (student.lastname.includes("-")) {
+    //   let urlImage;
+    //   let imglastName = student.lastname.substring(
+    //     student.lastname.indexOf("-") + 1
+    //   );
+    //   urlImage =
+    //     imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
+    //   console.log(urlImage);
+    //   document.querySelector(
+    //     "#student-pic"
+    //   ).src = `./students-pics/${urlImage}`;
+    // } else if (student.lastname === "Patil") {
+    //   document.querySelector(
+    //     "#student-pic"
+    //   ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
+    // } else {
+    document.querySelector("#student-pic").src =
+      "./students-pics/" +
+      student.lastname.toLowerCase() +
+      "_" +
+      student.firstname[0].substring(0, 1).toLowerCase() +
+      ".png";
+    // }
 
     //event listeners for expelling student and closing window
     document.querySelector("#popup-close").addEventListener("click", closePU);
